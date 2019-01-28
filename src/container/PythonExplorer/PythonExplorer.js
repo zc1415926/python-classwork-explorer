@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
 import axios from 'axios'
 import FileList from './FileList/FileList'
+import ShowCode from './ShowCode/ShowCode'
 
 class PythonExplorer extends Component{
 
     state={
-        pythonFileList: []
+        pythonFileList: [],
+        pythonFileContent: ''
     }
 
     componentDidMount(){
@@ -26,6 +28,7 @@ class PythonExplorer extends Component{
         axios.get('http://localhost:3001' + this.state.pythonFileList[iKey].filePath)
             .then(response=>{
                 console.log(response.data);
+                this.setState({pythonFileContent: response.data})
             })
             .catch(error=>{
                 console.log(error)
@@ -40,6 +43,7 @@ class PythonExplorer extends Component{
                     pythonFileList={this.state.pythonFileList}
                     itemClickedHandler={this.itemClickedHandler}
                 ></FileList>
+                <ShowCode>{this.state.pythonFileContent}</ShowCode>
             </div>
         )
     }
