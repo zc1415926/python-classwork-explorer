@@ -1,6 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Student can upload the python classwork and teacher can check the classwork is the main aim of this project. 
 
-## Available Scripts
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app) and [Electron](https://github.com/electron/electron).
+
+## How to run the project
 
 In the project directory, you can run:
 
@@ -11,6 +13,14 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
+
+### `npm run electron`
+The project make create-react-app and Electron work together. Thanks the following page:
+
+[How to build an Electron app using create-react-app](https://medium.freecodecamp.org/building-an-electron-application-with-create-react-app-97945861647c)
+
+[使用create-react-app构建Electron应用](https://zcfy.cc/article/building-an-electron-application-with-create-react-app)
+
 
 ### `npm test`
 
