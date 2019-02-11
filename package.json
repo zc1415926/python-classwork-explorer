@@ -16,8 +16,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "e": "node src/electron-wait-react",
     "electron": "electron .",
-    "dev" : "nf start"
+    "dev": "nf start"
   },
   "eslintConfig": {
     "extends": "react-app"

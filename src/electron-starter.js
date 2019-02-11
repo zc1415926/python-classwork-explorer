@@ -1,4 +1,6 @@
-const electron = require('electron');
+//const electron = require('electron');
+const electron = require('electron')
+const {ipcMain} = require('electron')
 // Module to control application life.
 const app = electron.app;
 // Module to create native browser window.
@@ -6,10 +8,42 @@ const BrowserWindow = electron.BrowserWindow;
 
 const path = require('path');
 const url = require('url');
+const child_process = require('child_process')
+const fs = require('fs')
+const os = require('os')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+ipcMain.on('write-open-py-file', (event, arg)=>{
+    //arg has two keys, arg.fileName and arg.fileContent
+    //write python file by arguments passed in
+    //tmpPythonFilePath combine tmdir with fileName of original python file
+    //if wrting succeed, return message and filePath just wrting
+    //if wrting failed, return message and empty string
+    const tmpPythonFilePath = os.tmpdir() + '/' + arg.fileName
+
+    fs.writeFile(tmpPythonFilePath, arg.fileContent,function(error){
+        if(error){
+            event.sender.send('write-py-file-reply', {
+                'message': 'failed',
+                'filePath': ''
+            });
+        } 
+        else{
+            //electron's console can't show directly by remote connect electron and create-react-app
+            //use a reply as a replacement.
+            //when tmpFile has been written open it using VS Code
+            child_process.exec('code' + ' ' + tmpPythonFilePath)
+            event.sender.send('write-py-file-reply', {
+                'message': 'success'
+            });
+        }
+    })
+
+    
+})
 
 function createWindow() {
     // Create the browser window.
